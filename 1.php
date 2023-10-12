@@ -62,3 +62,27 @@ if ($cd->actionCreate($pdo)) {
 if ($book->actionCreate($pdo)) {
     echo "Запись Book успешно добавлена в базу данных.";
 }
+
+$dsn = "mysql:host=localhost;dbname=имя_базы;charset=UTF8";
+$pdo = new PDO($dsn, 'логин', 'пароль');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// Замените "имя_таблицы" и названия столбцов на свои собственные
+$tableName = "products";
+$sql = "CREATE TABLE IF NOT EXISTS $tableName (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    producerFirstName VARCHAR(255),
+    producerMainName VARCHAR(255),
+    price DECIMAL(10, 2) NOT NULL,
+    playLength FLOAT,
+    numPages INT
+)";
+
+try {
+    $pdo->exec($sql);
+    echo "Таблица '$tableName' успешно создана.";
+} catch (PDOException $e) {
+    echo "Ошибка при создании таблицы: " . $e->getMessage();
+}
+
