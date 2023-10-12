@@ -5,20 +5,27 @@ class ShopProduct
     {
     }
 
-    public function getProducer(): string
+    public function getProducerFirstName(): string
     {
-        return "$this->producerFirstName $this->producerMainName";
+        return $this->producerFirstName;
     }
 
-    public function setProducer(string $firstName, string $mainName): void
+    public function setProducerFirstName(string $producerFirstName): void
     {
-        $this->producerFirstName = $firstName;
-        $this->producerMainName = $mainName;
+        $this->producerFirstName = $producerFirstName;
+    }
+    public function getProducerMainName(): string
+    {
+        return $this->producerMainName;
+    }
+    public function setProducerMainName(string $producerMainName): void
+    {
+        $this->producerMainName = $producerMainName;
     }
 
     public function getTitle(): string
     {
-        return "$this->title";
+        return $this->title;
     }
 
     public function setTitle(string $title): void
@@ -74,11 +81,11 @@ class BookProduct extends ShopProduct
 class ShowInfo
 {
     public function printCD(CDProduct $ShopProduct):void{
-        $str = "{$ShopProduct -> getTitle()}, {$ShopProduct -> getProducer()}, {$ShopProduct -> getPrice()}, {$ShopProduct -> getPlayLength()}"; 
+        $str = "{$ShopProduct -> getTitle()}, {$ShopProduct -> getProducerFirstName()}, {$ShopProduct -> getProducerMainName()}, {$ShopProduct -> getPrice()}, {$ShopProduct -> getPlayLength()}"; 
         print $str;
     }
     public function printBook(BookProduct $ShopProduct):void{
-        $str = "{$ShopProduct -> getTitle()}, {$ShopProduct -> getProducer()}, {$ShopProduct -> getPrice()}, {$ShopProduct -> getNumPages()}"; 
+        $str = "{$ShopProduct -> getTitle()}, {$ShopProduct -> getProducerFirstName()}, {$ShopProduct -> getProducerMainName()}, {$ShopProduct -> getPrice()}, {$ShopProduct -> getNumPages()}"; 
         print $str;
     }    
     
