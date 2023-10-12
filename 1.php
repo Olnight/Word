@@ -48,3 +48,17 @@ class BookProduct extends ShopProduct
         }
     }
 }
+$dsn = "mysql:host=localhost;dbname=имя_базы;charset=UTF8";
+$pdo = new PDO($dsn, 'логин', 'пароль');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$cd = new CDProduct("Музыкальный альбом", "Майкл", "Джексон", 12.99, 60);
+$book = new BookProduct("Книга", "Рой", "Бербери", 9.99, 200);
+
+if ($cd->actionCreate($pdo)) {
+    echo "Запись CD успешно добавлена в базу данных.";
+}
+
+if ($book->actionCreate($pdo)) {
+    echo "Запись Book успешно добавлена в базу данных.";
+}
