@@ -1,53 +1,50 @@
-<?php
 class ShopProduct
 {
-    public function __construct(public string $title, public string $producerFirstName = "", public string $producerMainName = "", public float $price = 0)
-    {
-    }
+    // ... (существующий код класса)
 
-    public function getProducer()
+    public function actionCreate(PDO $pdo): bool
     {
-        return "$this->producerFirstName $this->producerMainName";
-    }
-
-    public function setProducer(string $firstName, string $mainName)
-    {
-        $this->producerFirstName = $firstName;
-        $this->producerMainName = $mainName;
+        try {
+            $sql = "INSERT INTO products (title, producerFirstName, producerMainName, price) VALUES (?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$this->title, $this->producerFirstName, $this->producerMainName, $this->price]);
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 }
 
 class CDProduct extends ShopProduct
 {
-    public function __construct(string $title, string $firstName = "", string $mainName = "", float $price = 0, public float $playLength = 0)
+    // ... (существующий код класса)
+
+    public function actionCreate(PDO $pdo): bool
     {
-        parent::__construct($title, $firstName, $mainName, $price);
+        try {
+            $sql = "INSERT INTO products (title, producerFirstName, producerMainName, price, playLength) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$this->title, $this->producerFirstName, $this->producerMainName, $this->price, $this->playLength]);
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 }
 
 class BookProduct extends ShopProduct
 {
-    public function __construct(string $title, string $firstName = "", string $mainName = "", float $price = 0, public int $numPages = 0)
+    // ... (существующий код класса)
+
+    public function actionCreate(PDO $pdo): bool
     {
-        parent::__construct($title, $firstName, $mainName, $price);
+        try {
+            $sql = "INSERT INTO products (title, producerFirstName, producerMainName, price, numPages) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$this->title, $this->producerFirstName, $this->producerMainName, $this->price, $this->numPages]);
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 }
-
-class ProductInfoPrinter
-{
-    public function printProductInfo(ShopProduct $product)
-    {
-        echo "Product Info:\n";
-        echo "Title: {$product->title}\n";
-        echo "Producer: {$product->getProducer()}\n";
-        echo "Price: {$product->price}\n";
-    }
-}
-
-// Пример использования классов
-$cd = new CDProduct("Album Title", "First Name", "Main Name", 12.99, 60);
-$book = new BookProduct("Book Title", "First Name", "Main Name", 9.99, 200);
-
-$printer = new ProductInfoPrinter();
-$printer->printProductInfo($cd);
-$printer->printProductInfo($book);
